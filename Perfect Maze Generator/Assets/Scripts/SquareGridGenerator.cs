@@ -24,14 +24,14 @@ public class SquareGridGenerator : MonoBehaviour, IGridGenerator
             {
                 var cell = Instantiate(cellPrefab, new Vector3(x * cellWidth, 0, y * cellWidth), Quaternion.identity);
                 cell.transform.localScale = new Vector3(cellWidth, 0.1f, cellWidth);
+                cell.transform.SetParent(MazeManager.Instance.mazeHolder.transform);
                 grid[x, y] = cell.GetComponent<ICell>();
                 grid[x, y].X = x;
                 grid[x, y].Y = y;
-                yield return new WaitForSeconds(.01f);
             }
         }
-        OnEmptyGridGenerated?.Invoke(grid);
         yield return new WaitForSeconds(0);
+        OnEmptyGridGenerated?.Invoke(grid);
     }
 
 }

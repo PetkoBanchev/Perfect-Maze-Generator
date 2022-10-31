@@ -1,4 +1,6 @@
 
+using UnityEngine;
+
 public interface ICell
 {
     public int X { get; set; }
@@ -6,4 +8,5 @@ public interface ICell
     public bool IsVisited { get; set; }
     public void RemoveWalls(Wall wall);
     public ICell GetRandomUnvisitedNeighbour();
+    public void SetColor(Color color);
 }

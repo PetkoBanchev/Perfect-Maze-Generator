@@ -8,6 +8,8 @@ public class SquareCell : MonoBehaviour, ICell
     [SerializeField] private bool isVisited = false;
     [SerializeField] private GameObject[] wallObjects;
 
+    [SerializeField] private MeshRenderer meshRenderer;
+
     public int X
     {
         get { return x; }
@@ -22,7 +24,12 @@ public class SquareCell : MonoBehaviour, ICell
     public bool IsVisited
     {
         get { return isVisited;}
-        set { isVisited = value;}
+        set { isVisited = value; SetColor(Color.green); }
+    }
+
+    public void SetColor(Color color)
+    {
+        meshRenderer.material.color = color;
     }
 
     public void RemoveWalls(Wall wall)

@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 575040666300177871}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 10.5, z: 0.495}
-  m_LocalScale: {x: 0.01, y: 20, z: 1}
+  m_LocalPosition: {x: 0, y: 10.5, z: 0.45}
+  m_LocalScale: {x: 0.1, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8930582392876229696}
@@ -124,8 +124,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 824108384981947675}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.495, y: 10.5, z: 0}
-  m_LocalScale: {x: 0.01, y: 20, z: 1}
+  m_LocalPosition: {x: -0.45, y: 10.5, z: 0}
+  m_LocalScale: {x: 0.1, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8930582392876229696}
@@ -221,8 +221,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4411120783389336713}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.495, y: 10.5, z: 0}
-  m_LocalScale: {x: 0.01, y: 20, z: 1}
+  m_LocalPosition: {x: 0.45, y: 10.5, z: 0}
+  m_LocalScale: {x: 0.1, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8930582392876229696}
@@ -318,8 +318,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6328257652866257595}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 10.5, z: -0.495}
-  m_LocalScale: {x: 0.01, y: 20, z: 1}
+  m_LocalPosition: {x: 0, y: 10.5, z: -0.45}
+  m_LocalScale: {x: 0.1, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8930582392876229696}
@@ -455,7 +455,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e6bc488ad3ec5f14cb6932919892718c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -502,9 +502,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64c7ba26a0bb32543a5a8b38e6fa796a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsVisited: 0
+  x: 0
+  y: 0
+  isVisited: 0
   wallObjects:
   - {fileID: 575040666300177871}
   - {fileID: 4411120783389336713}
   - {fileID: 6328257652866257595}
   - {fileID: 824108384981947675}
+  meshRenderer: {fileID: 8682716746285077323}

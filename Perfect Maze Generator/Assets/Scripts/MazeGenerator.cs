@@ -8,20 +8,17 @@ public class MazeGenerator : MonoBehaviour
 
     private Stack<ICell> stack;
 
-    private IGridGenerator gridGenerator;
     private IWallRemover wallRemover;
 
 
     private void Awake()
     {
-        gridGenerator = GetComponent<IGridGenerator>();
         wallRemover = GetComponent<IWallRemover>();
     }
     // Start is called before the first frame update
     void Start()
     {
         MazeManager.Instance.OnEmptyMazeSet += GenerateMaze;
-        gridGenerator.GenerateEmptyGrid(MazeManager.Instance.Width, MazeManager.Instance.Height);
         stack = new Stack<ICell>();
     }
 
@@ -38,6 +35,7 @@ public class MazeGenerator : MonoBehaviour
         while (stack.Count > 0)
         {
             currentCell = stack.Pop();
+            currentCell.SetColor(Color.blue);
             var nextCell = currentCell.GetRandomUnvisitedNeighbour();
             if (nextCell != null)
             {
@@ -45,8 +43,10 @@ public class MazeGenerator : MonoBehaviour
                 wallRemover.RemoveWalls(currentCell, nextCell);
                 nextCell.IsVisited = true;
                 stack.Push(nextCell);
-                yield return new WaitForSeconds(0.1f);
+                if(MazeManager.Instance.IsGenerationAnimated)
+                    yield return new WaitForSeconds(10/(MazeManager.Instance.Width * MazeManager.Instance.Height));
             }
+            currentCell.SetColor(Color.green);
         }
         yield return new WaitForSeconds(0);
     }
