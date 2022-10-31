@@ -3,13 +3,15 @@ using UnityEngine;
 
 public class SquareCell : MonoBehaviour, ICell
 {
+    #region Private Variables
     [SerializeField] private int x;
     [SerializeField] private int y;
     [SerializeField] private bool isVisited = false;
     [SerializeField] private GameObject[] wallObjects;
-
     [SerializeField] private MeshRenderer meshRenderer;
+    #endregion
 
+    #region Public properties
     public int X
     {
         get { return x; }
@@ -26,7 +28,9 @@ public class SquareCell : MonoBehaviour, ICell
         get { return isVisited;}
         set { isVisited = value; SetColor(Color.green); }
     }
+    #endregion
 
+    #region Public methods
     public void SetColor(Color color)
     {
         meshRenderer.material.color = color;
@@ -48,9 +52,7 @@ public class SquareCell : MonoBehaviour, ICell
             case Wall.LEFT:
                 wallObjects[3].SetActive(false);
                 break;
-            
         }
-
     }
 
     public ICell GetRandomUnvisitedNeighbour()
@@ -93,5 +95,6 @@ public class SquareCell : MonoBehaviour, ICell
         }
         return null;
     }
+    #endregion
 
 }

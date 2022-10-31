@@ -1,34 +1,34 @@
 using UnityEngine;
 public class SquareCellWallRemover : MonoBehaviour, IWallRemover
 {
-    public void RemoveWalls(ICell current, ICell next)
+    public void RemoveWalls(ICell currentCell, ICell nextCell)
     {
-        int xOffset = current.X - next.X;
-        int yOffset = current.Y - next.Y;
+        int xOffset = currentCell.X - nextCell.X;
+        int yOffset = currentCell.Y - nextCell.Y;
 
         //Top Neighbour
         if (xOffset == 0 && yOffset == -1)
         {
-            current.RemoveWalls(Wall.TOP);
-            next.RemoveWalls(Wall.BOTTOM);
+            currentCell.RemoveWalls(Wall.TOP);
+            nextCell.RemoveWalls(Wall.BOTTOM);
         }
         //Right Neighbour
         if (xOffset == -1 && yOffset == 0)
         {
-            current.RemoveWalls(Wall.RIGHT);
-            next.RemoveWalls(Wall.LEFT);
+            currentCell.RemoveWalls(Wall.RIGHT);
+            nextCell.RemoveWalls(Wall.LEFT);
         }
         //Bottom Neighbour
         if (xOffset == 0 && yOffset == 1)
         {
-            current.RemoveWalls(Wall.BOTTOM);
-            next.RemoveWalls(Wall.TOP);
+            currentCell.RemoveWalls(Wall.BOTTOM);
+            nextCell.RemoveWalls(Wall.TOP);
         }
         //Left Neighbour
         if (xOffset == 1 && yOffset == 0)
         {
-            current.RemoveWalls(Wall.LEFT);
-            next.RemoveWalls(Wall.RIGHT);
+            currentCell.RemoveWalls(Wall.LEFT);
+            nextCell.RemoveWalls(Wall.RIGHT);
         }
     }
 }

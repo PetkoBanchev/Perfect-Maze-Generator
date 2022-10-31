@@ -3,17 +3,25 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class MazeManager : MonoBehaviour
-{   
+{
+    #region Private varialbes
     private static MazeManager instance;
+
     [SerializeField, Range(10, 250)] int width = 10;
     [SerializeField, Range(10, 250)] int height = 10;
+    [SerializeField, Range(1f, 5f)] float cellWidth = 1;
     [SerializeField] private bool isGenerationAnimated;
 
     private ICell[,] maze;
     private IGridGenerator gridGenerator;
+    #endregion
 
+    #region Public variables
     public event Action OnEmptyMazeSet;
     public GameObject mazeHolder;
+    #endregion
+
+    #region Private methods
     private void Awake()
     {
         instance = this;
@@ -26,7 +34,14 @@ public class MazeManager : MonoBehaviour
         maze = _maze;
         OnEmptyMazeSet?.Invoke();
     }
+    private void DestroyMaze()
+    {
+        Destroy(mazeHolder);
+        mazeHolder = new GameObject("Maze Holder");
+    }
+    #endregion
 
+    #region Public properties
     public static MazeManager Instance
     {
         get
@@ -45,6 +60,12 @@ public class MazeManager : MonoBehaviour
         set { height = value; }
     }
 
+    public float CellWidth
+    {
+        get { return cellWidth; }
+        set { cellWidth = value; }
+    }
+
     public bool IsGenerationAnimated
     {
         get { return isGenerationAnimated; }
@@ -55,16 +76,13 @@ public class MazeManager : MonoBehaviour
     {
         return maze[x, y];
     }
+    #endregion
 
-    private void DestroyMaze()
-    {
-        Destroy(mazeHolder);
-        mazeHolder = new GameObject("Maze Holder");
-    }
-
+    #region Public methods
     public void CreateMaze()
     {
         DestroyMaze();
         gridGenerator.GenerateEmptyGrid(width, height);
     }
+    #endregion
 }

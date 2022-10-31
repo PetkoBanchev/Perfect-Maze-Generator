@@ -5,9 +5,7 @@ using UnityEngine;
 public class MazeGenerator : MonoBehaviour
 {
     private ICell currentCell;
-
     private Stack<ICell> stack;
-
     private IWallRemover wallRemover;
 
 
@@ -15,8 +13,7 @@ public class MazeGenerator : MonoBehaviour
     {
         wallRemover = GetComponent<IWallRemover>();
     }
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         MazeManager.Instance.OnEmptyMazeSet += GenerateMaze;
         stack = new Stack<ICell>();
@@ -48,6 +45,6 @@ public class MazeGenerator : MonoBehaviour
             }
             currentCell.SetColor(Color.green);
         }
-        yield return new WaitForSeconds(0);
+        yield return null;
     }
 }
