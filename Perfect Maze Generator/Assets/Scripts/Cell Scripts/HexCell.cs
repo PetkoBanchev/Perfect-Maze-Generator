@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SquareCell : MonoBehaviour, ICell
+public class HexCell : MonoBehaviour, ICell
 {
     #region Private Variables
     [SerializeField] private int x;
@@ -14,39 +14,51 @@ public class SquareCell : MonoBehaviour, ICell
     #endregion
 
     #region Private methods
-    /// <summary>
-    /// Caches all of the unvisited neighbours adjacent to the cell
-    /// </summary>
     private void CacheUnvisitedNeighbours()
     {
-        //Top Neighbour (x, y + 1)
-        if (y + 1 < MazeManager.Instance.Height)
+        //Top Right Neighbour (x + 1, y + 1)
+        if (x + 1 < MazeManager.Instance.Width && y + 1 < MazeManager.Instance.Height)
         {
-            var neigbhour = MazeManager.Instance.GetCell(x, y + 1);
+            var neigbhour = MazeManager.Instance.GetCell(x + 1, y + 1);
             if (!neigbhour.IsVisited)
                 neighbours.Add(neigbhour);
         }
-        //Right Neighbour (x +1, y)
-        if (x + 1 < MazeManager.Instance.Width)
+        //Right Neigbhour (x + 2, y)
+        if (x + 2 < MazeManager.Instance.Width)
         {
-            var neigbhour = MazeManager.Instance.GetCell(x + 1, y);
+            var neigbhour = MazeManager.Instance.GetCell(x + 2, y);
             if (!neigbhour.IsVisited)
                 neighbours.Add(neigbhour);
         }
-        //Bottom Neighbour (x, y - 1)
-        if (y - 1 >= 0)
+        //Bottom Right Neighbour (x + 1, y - 1)
+        if (x + 1 < MazeManager.Instance.Width && y - 1 >= 0)
         {
-            var neigbhour = MazeManager.Instance.GetCell(x, y - 1);
+            var neigbhour = MazeManager.Instance.GetCell(x + 1, y - 1);
             if (!neigbhour.IsVisited)
                 neighbours.Add(neigbhour);
         }
-        //Left Neighbour (x - 1, y)
-        if (x - 1 >= 0)
+        //Bottom Left Neighbour (x - 1, y - 1)
+        if (x - 1 >= 0 && y - 1 >= 0)
         {
-            var neigbhour = MazeManager.Instance.GetCell(x - 1, y);
+            var neigbhour = MazeManager.Instance.GetCell(x - 1, y - 1);
             if (!neigbhour.IsVisited)
                 neighbours.Add(neigbhour);
         }
+        //Left Neigbhour (x - 2, y)
+        if (x - 2 >= 0)
+        {
+            var neigbhour = MazeManager.Instance.GetCell(x - 2, y);
+            if (!neigbhour.IsVisited)
+                neighbours.Add(neigbhour);
+        }
+        //Top Left Neighbour (x - 1, y + 1)
+        if (x -1 >= 0 && y + 1 < MazeManager.Instance.Height)
+        {
+            var neigbhour = MazeManager.Instance.GetCell(x - 1, y + 1);
+            if (!neigbhour.IsVisited)
+                neighbours.Add(neigbhour);
+        }
+
         areNeighboursCached = true;
     }
     #endregion
@@ -65,12 +77,12 @@ public class SquareCell : MonoBehaviour, ICell
 
     public bool IsVisited
     {
-        get { return isVisited;}
-        set 
-        { 
-            isVisited = value; 
-            if(MazeManager.Instance.IsGenerationAnimated)
-                SetColor(Color.green); 
+        get { return isVisited; }
+        set
+        {
+            isVisited = value;
+            if (MazeManager.Instance.IsGenerationAnimated)
+                SetColor(Color.green);
         }
     }
     #endregion
@@ -85,20 +97,27 @@ public class SquareCell : MonoBehaviour, ICell
     {
         switch (wall)
         {
-            case Wall.TOP:
+            case Wall.TOP_RIGHT:
                 wallObjects[0].SetActive(false);
                 break;
             case Wall.RIGHT:
                 wallObjects[1].SetActive(false);
                 break;
-            case Wall.BOTTOM:
+            case Wall.BOTTOM_RIGHT:
                 wallObjects[2].SetActive(false);
                 break;
-            case Wall.LEFT:
+            case Wall.BOTTOM_LEFT:
                 wallObjects[3].SetActive(false);
+                break;
+            case Wall.LEFT:
+                wallObjects[4].SetActive(false);
+                break;
+            case Wall.TOP_LEFT:
+                wallObjects[5].SetActive(false);
                 break;
         }
     }
+
     /// <summary>
     /// Caches the neighbours once. Iterates through all of the cached neighbours.
     /// Removes any visited neighbours.
@@ -133,5 +152,4 @@ public class SquareCell : MonoBehaviour, ICell
         return null;
     }
     #endregion
-
 }

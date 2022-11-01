@@ -3,11 +3,15 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     [SerializeField] private Camera topDownCamera;
-    void Start()
+    private void Start()
     {
         MazeManager.Instance.OnEmptyMazeSet += MoveCameraToCentreOfMaze;
     }
 
+    /// <summary>
+    /// Crude way to centre a topdown orthographic camera on the maze.
+    /// A more elegant solution must be implemented in the future.
+    /// </summary>
     private void MoveCameraToCentreOfMaze()
     {
         var halfWidth = (MazeManager.Instance.Width * MazeManager.Instance.CellWidth / 2) - 1;

@@ -1,6 +1,8 @@
 using UnityEngine;
 public class SquareCellWallRemover : MonoBehaviour, IWallRemover
 {
+    private CellType cellType = CellType.Square;
+    public CellType CellType { get { return cellType; } }
     public void RemoveWalls(ICell currentCell, ICell nextCell)
     {
         int xOffset = currentCell.X - nextCell.X;

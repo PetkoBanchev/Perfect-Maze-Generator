@@ -5,10 +5,21 @@ using UnityEngine.UI;
 
 public class MazeSettingsSetter : MonoBehaviour
 {
+    #region Private variable
     [SerializeField] private TMP_InputField widthInput;
     [SerializeField] private TMP_InputField heightInput;
     [SerializeField] private Toggle isAnimationGeneratedInput;
+    [SerializeField] private TMP_Dropdown cellTypeDropDown;
+    #endregion
 
+    #region Private methods
+    private void Awake()
+    {
+        DropdownListPopulator.PopulateDropdown<CellType>(cellTypeDropDown);
+    }
+    #endregion
+
+    #region Public methods
     public void SetWidth()
     {
         int width = Int32.Parse(widthInput.text);
@@ -55,4 +66,10 @@ public class MazeSettingsSetter : MonoBehaviour
         else
             MazeManager.Instance.IsGenerationAnimated = false;
     }
+
+    public void SetCellType(int index)
+    {
+        MazeManager.Instance.CellType = (CellType)index;
+    }
+    #endregion
 }

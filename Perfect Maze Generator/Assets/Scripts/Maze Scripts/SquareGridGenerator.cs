@@ -4,18 +4,40 @@ using UnityEngine;
 
 public class SquareGridGenerator : MonoBehaviour, IGridGenerator
 {
+    #region Private variables
     [SerializeField] GameObject cellPrefab;
-
+    private CellType cellType = CellType.Square;
     private ICell[,] grid;
+    #endregion
 
+    #region Public variables
     public event Action<ICell[,]> OnEmptyGridGenerated;
-    public void GenerateEmptyGrid(int width, int height)
-    {
-        StartCoroutine(InstantiateGrid(width, height));
-    }
+    #endregion
 
-    private IEnumerator InstantiateGrid(int width, int height)
+    #region Public properties
+    public CellType CellType
     {
+        get { return cellType; }
+    }
+    #endregion
+
+    #region Public methods
+    public void GenerateEmptyGrid()
+    {
+        StartCoroutine(InstantiateGrid());
+    }
+    #endregion
+
+    #region Private methods
+    /// <summary>
+    /// Creates a simple square grid using a nested loop.
+    /// In the end an event is fired that passes along the grid.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator InstantiateGrid()
+    {
+        var width = MazeManager.Instance.Width;
+        var height = MazeManager.Instance.Height;   
         var cellWidth = MazeManager.Instance.CellWidth;
         grid = new ICell[width, height];
         for (int y = 0; y < height; y++)
@@ -36,5 +58,6 @@ public class SquareGridGenerator : MonoBehaviour, IGridGenerator
         yield return null;
         OnEmptyGridGenerated?.Invoke(grid);
     }
+    #endregion
 }
 
